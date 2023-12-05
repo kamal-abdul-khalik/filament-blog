@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class Post extends Model
+class  Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -59,6 +59,16 @@ class Post extends Model
     public function scopeFeatured($query)
     {
         $query->where('featured', true);
+    }
+
+    public function scopePopular($query)
+    {
+        $query->withCount('likes')->orderBy('likes_count', 'desc');
+    }
+
+    public function scopeSearch($query, $search = '')
+    {
+        $query->where('title', 'like', "%{$search}%");
     }
 
     public function scopeWithCategory($query, string $category)
