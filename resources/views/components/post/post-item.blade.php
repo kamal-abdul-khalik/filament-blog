@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div>
-                    <livewire:like-button :key="$post->id" :$post />
+                    <livewire:posts.like-button :key="$post->id" :$post />
                 </div>
             </div>
         </div>

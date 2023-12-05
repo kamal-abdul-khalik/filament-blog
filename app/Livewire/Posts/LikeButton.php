@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Posts;
 
 use App\Models\Post;
 use Livewire\Attributes\Reactive;
@@ -28,6 +28,6 @@ class LikeButton extends Component
 
     public function render()
     {
-        return view('livewire.like-button');
+        return view('livewire.posts.like-button');
     }
 }
