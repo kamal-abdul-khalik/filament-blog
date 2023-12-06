@@ -19,4 +19,10 @@ class CreatePost extends CreateRecord
     {
         return 'New post was created';
     }
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['user_id'] = auth()->id();
+        return $data;
+    }
 }

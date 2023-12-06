@@ -39,7 +39,7 @@ class PostResource extends Resource
                 Section::make('Main Content')
                     ->schema([
                         TextInput::make('title')
-                            ->live()->required()->minLength(3)->maxLength(150)
+                            ->live(debounce: 500)->required()->minLength(3)->maxLength(150)
                             ->afterStateUpdated(function (string $operation, $state, Forms\Set $set) {
                                 if ($operation === 'edit') {
                                     return;
@@ -55,7 +55,6 @@ class PostResource extends Resource
                         Section::make()->schema([FileUpload::make('image')->directory('posts/thumbnails')->nullable(),]),
                         DateTimePicker::make('published_at')->nullable(),
                         Checkbox::make('featured')->nullable(),
-                        Select::make('user_id')->relationship('author', 'name')->searchable()->required(),
                         Select::make('categories')->relationship('categories', 'title')->multiple()->searchable()
                     ])->columns(2)
             ]);
@@ -67,7 +66,7 @@ class PostResource extends Resource
             ->columns([
                 TextColumn::make('title')->searchable()->sortable(),
                 TextColumn::make('author.name')->searchable()->sortable(),
-                TextColumn::make('category.title')->wrap()->badge(),
+                TextColumn::make('categories.title')->badge()->toggleable()->searchable(),
                 CheckboxColumn::make('featured')->sortable(),
                 TextColumn::make('published_at')->date('d-m-Y')->searchable()->sortable(),
             ])
@@ -76,6 +75,7 @@ class PostResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
