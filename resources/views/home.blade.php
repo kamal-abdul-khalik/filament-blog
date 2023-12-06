@@ -6,8 +6,8 @@
                     News</span>
             </h1>
             <p class="text-gray-500 text-lg mt-1">Best Blog in the universe</p>
-            <a class="px-3 py-2 text-lg text-white bg-gray-800 rounded mt-5 inline-block"
-                href="http://127.0.0.1:8000/blog">Start
+            <a wire:navigate class="px-3 py-2 text-lg text-white bg-gray-800 rounded mt-5 inline-block"
+                href="{{ route('posts.index') }}">Start
                 Reading</a>
         </div>
     @endsection
@@ -23,8 +23,8 @@
                     @endforeach
                 </div>
             </div>
-            <a class="mt-10 block text-center text-lg text-yellow-500 font-semibold"
-                href="http://127.0.0.1:8000/blog">More
+            <a wire:navigate class="mt-10 block text-center text-lg text-yellow-500 font-semibold"
+                href="{{ route('posts.index') }}">More
                 Posts</a>
         </div>
         <hr>
@@ -37,7 +37,8 @@
                 @endforeach
             </div>
         </div>
-        <a class="mt-10 block text-center text-lg text-yellow-500 font-semibold" href="http://127.0.0.1:8000/blog">More
+        <a wire:navigate class="mt-10 block text-center text-lg text-yellow-500 font-semibold"
+            href="{{ route('posts.index') }}">More
             Posts</a>
     </div>
 </x-app-layout>

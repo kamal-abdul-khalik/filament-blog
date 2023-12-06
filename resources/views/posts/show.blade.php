@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <div class="article-content py-3 text-gray-800 text-lg text-justify">
+        <div class="article-content prose prose-slate py-3 text-gray-800 text-lg text-justify">
             {!! $post->body !!}
         </div>
 
@@ -46,7 +46,6 @@
                 <x-post.category-badge :category="$category" />
             @endforeach
         </div>
-
         <livewire:posts.PostComments :key="'comments' . $post->id" :$post />
     </article>
 </x-app-layout>
