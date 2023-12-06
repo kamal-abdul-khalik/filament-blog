@@ -6,7 +6,6 @@ use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
 use Filament\Forms;
-use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
@@ -48,15 +47,20 @@ class PostResource extends Resource
                             }),
                         TextInput::make('slug')->required()->unique(ignoreRecord: true)->maxLength(150),
                         RichEditor::make('body')->required()->fileAttachmentsDirectory('posts/image')->columnSpanFull(),
+                        Toggle::make('featured')->nullable(),
                     ])->columns(2),
 
                 Section::make('Meta')
                     ->schema([
-                        Section::make()->schema([FileUpload::make('image')->directory('posts/thumbnails')->nullable(),]),
+                        Section::make()->schema([
+                            FileUpload::make('image')->directory('posts/thumbnails')->nullable(),
+                        ]),
                         DateTimePicker::make('published_at')->nullable(),
-                        Checkbox::make('featured')->nullable(),
-                        Select::make('categories')->relationship('categories', 'title')->multiple()->searchable()
-                    ])->columns(2)
+                        Select::make('categories')->relationship('categories', 'title')
+                            ->multiple()
+                            ->preload()
+                            ->searchable(),
+                    ])->columns(3)
             ]);
     }
 
